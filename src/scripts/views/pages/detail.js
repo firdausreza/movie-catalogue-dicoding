@@ -14,7 +14,7 @@ const Detail = {
     console.log(url, 'after render')
     const movie = await MovieDBSource.detailMovie(url.id);
     const movieContainer = document.querySelector('#movie');
-    movieContainer.innerHTML = createMovieDetailTemplate(movie)
+    movieContainer.innerHTML = createMovieDetailTemplate(movie, url.pathname);
   },
 };
 
