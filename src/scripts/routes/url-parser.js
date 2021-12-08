@@ -5,7 +5,7 @@ const UrlParser = {
       const splittedUrl = this._urlSplitter(url, false);
       return this._urlCombiner(splittedUrl);
     } else {
-      url = window.location.pathname + url;
+      url = window.location.pathname.slice(3, 1).toLowerCase() + url;
       console.log(url, 'original url');
       const splittedUrl = this._urlSplitter(url, true);
       console.log(splittedUrl, 'Splitted url with pathname');
