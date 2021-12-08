@@ -2,17 +2,16 @@ const UrlParser = {
   parseActiveUrlWithCombiner() {
     const url = window.location.hash.slice(1).toLowerCase();
     const splittedUrl = this._urlSplitter(url);
-    console.log(url, splittedUrl, 'parse active with comb')
     return this._urlCombiner(splittedUrl);
   },
 
   parseActiveUrlWithoutCombiner() {
     let url = window.location.hash.slice(1).toLowerCase();
-    console.log(url, 'parse active url')
     if (window.location.pathname === "/") {
       return this._urlSplitter(url, false);
     } else {
       url = window.location.pathname + url;
+      console.log(url, 'with pathname');
       return this._urlSplitter(url, true)
     }
   },
