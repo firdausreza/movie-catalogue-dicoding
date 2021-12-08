@@ -7,18 +7,33 @@ const UrlParser = {
   },
 
   parseActiveUrlWithoutCombiner() {
-    const url = window.location.hash.slice(1).toLowerCase();
+    let url = window.location.hash.slice(1).toLowerCase();
     console.log(url, 'parse active url')
-    return this._urlSplitter(url);
+    if (window.location.pathname === "/") {
+      return this._urlSplitter(url, false);
+    } else {
+      url = window.location.pathname + url;
+      return this._urlSplitter(url, true)
+    }
   },
 
-  _urlSplitter(url) {
-    const urlsSplits = url.split('/');
-    return {
-      resource: urlsSplits[1] || null,
-      id: urlsSplits[2] || null,
-      verb: urlsSplits[3] || null,
-    };
+  _urlSplitter(url, isPathnameEnabled) {
+    if (!isPathnameEnabled) {
+      const urlsSplits = url.split('/');
+      return {
+        resource: urlsSplits[1] || null,
+        id: urlsSplits[2] || null,
+        verb: urlsSplits[3] || null,
+      };
+    } else {
+      const urlsSplits = url.split('/');
+      return {
+        pathname: urlsSplits[1] || null,
+        resource: urlsSplits[2] || null,
+        id: urlsSplits[3] || null,
+        verb: urlsSplits[4] || null,
+      };
+    }
   },
 
   _urlCombiner(splitedUrl) {
