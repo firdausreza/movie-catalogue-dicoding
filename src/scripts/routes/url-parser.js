@@ -1,19 +1,21 @@
 const UrlParser = {
   parseActiveUrlWithCombiner() {
-    const url = window.location.hash.slice(1).toLowerCase();
-    const splittedUrl = this._urlSplitter(url);
-    return this._urlCombiner(splittedUrl);
+    let url = window.location.hash.slice(1).toLowerCase();
+    if (window.location.pathname === "/") {
+      const splittedUrl = this._urlSplitter(url, false);
+      return this._urlCombiner(splittedUrl);
+    } else {
+      url = window.location.pathname + url;
+      const splittedUrl = this._urlSplitter(url, true);
+      console.log(splittedUrl, 'Splitted url with pathname');
+      console.log(this._urlCombiner(splittedUrl), 'Combined url');
+      return this._urlCombiner(splittedUrl);
+    }
   },
 
   parseActiveUrlWithoutCombiner() {
     let url = window.location.hash.slice(1).toLowerCase();
-    if (window.location.pathname === "/") {
-      return this._urlSplitter(url, false);
-    } else {
-      url = window.location.pathname + url;
-      console.log(url, 'with pathname');
-      return this._urlSplitter(url, true)
-    }
+    return this._urlSplitter(url, false);
   },
 
   _urlSplitter(url, isPathnameEnabled) {
