@@ -1,41 +1,22 @@
 const UrlParser = {
   parseActiveUrlWithCombiner() {
-    let url = window.location.hash.slice(1).toLowerCase();
-    if (window.location.pathname === "/") {
-      const splittedUrl = this._urlSplitter(url, false);
-      return this._urlCombiner(splittedUrl);
-    } else {
-      url = window.location.pathname.split('/')[1] + url;
-      console.log(url, 'original url');
-      const splittedUrl = this._urlSplitter(url, true);
-      console.log(splittedUrl, 'Splitted url with pathname');
-      console.log(this._urlCombiner(splittedUrl), 'Combined url');
-      return this._urlCombiner(splittedUrl);
-    }
+    const url = window.location.hash.slice(1).toLowerCase();
+    const splitedUrl = this._urlSplitter(url);
+    return this._urlCombiner(splitedUrl);
   },
 
   parseActiveUrlWithoutCombiner() {
-    let url = window.location.hash.slice(1).toLowerCase();
-    return this._urlSplitter(url, false);
+    const url = window.location.hash.slice(1).toLowerCase();
+    return this._urlSplitter(url);
   },
 
-  _urlSplitter(url, isPathnameEnabled) {
-    if (!isPathnameEnabled) {
-      const urlsSplits = url.split('/');
-      return {
-        resource: urlsSplits[1] || null,
-        id: urlsSplits[2] || null,
-        verb: urlsSplits[3] || null,
-      };
-    } else {
-      const urlsSplits = url.split('/');
-      return {
-        pathname: urlsSplits[1] || null,
-        resource: urlsSplits[2] || null,
-        id: urlsSplits[3] || null,
-        verb: urlsSplits[4] || null,
-      };
-    }
+  _urlSplitter(url) {
+    const urlsSplits = url.split('/');
+    return {
+      resource: urlsSplits[1] || null,
+      id: urlsSplits[2] || null,
+      verb: urlsSplits[3] || null,
+    };
   },
 
   _urlCombiner(splitedUrl) {

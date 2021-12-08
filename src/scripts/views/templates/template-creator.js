@@ -22,7 +22,8 @@ const createMovieDetailTemplate = (movie) => {
   `;
 }
 
-const createMovieItemTemplate = (movie, pathname) => {
+const createMovieItemTemplate = (movie) => {
+  const pathname = window.location.pathname.split('/')[1];
   return `
     <div class="movie-item">
       <div class="movie-item__header">
@@ -33,7 +34,7 @@ const createMovieItemTemplate = (movie, pathname) => {
           </div>
       </div>
       <div class="movie-item__content">
-          <h3><a href="${ pathname ? `${pathname}/#/detail/${movie.id}` : `/#/detail/${movie.id}`}">${movie.title}</a></h3>
+          <h3><a href="${ pathname === '/' ? `/#/detail/${movie.id}` : `/${pathname}/#/detail/${movie.id}` }">${movie.title}</a></h3>
           <p>${movie.overview}</p>
       </div>
     </div>
